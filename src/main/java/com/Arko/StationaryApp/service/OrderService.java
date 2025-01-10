@@ -1,6 +1,6 @@
 package com.Arko.StationaryApp.service;
 
-import com.Arko.StationaryApp.model.Order;
+import com.Arko.StationaryApp.model.Orders;
 import com.Arko.StationaryApp.repository.OrderRepository;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
@@ -15,15 +15,15 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public List<Order> findByUserId(Long userId) {
+    public List<Orders> findByUserId(Long userId) {
         return orderRepository.findByUserId(userId);
     }
 
-    public Order saveOrder(Order order) {
+    public Orders saveOrder(Orders order) {
         return orderRepository.save(order);
     }
 
-    public Order findById(Long id) {
+    public Orders findById(Long id) {
         return orderRepository.findById(id).orElse(null);
     }
 }

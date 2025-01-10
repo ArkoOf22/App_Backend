@@ -1,12 +1,11 @@
 package com.Arko.StationaryApp.controller;
 
-import com.Arko.StationaryApp.model.Order;
+import com.Arko.StationaryApp.model.Orders;
 import com.Arko.StationaryApp.model.Product;
 import com.Arko.StationaryApp.model.User;
 import com.Arko.StationaryApp.service.OrderService;
 import com.Arko.StationaryApp.service.ProductService;
 import com.Arko.StationaryApp.service.UserService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +38,7 @@ public class OrderController {
         product.setStockQuantity(product.getStockQuantity()-quantity);
         productService.saveProduct(product);
 
-        Order order=Order.builder()
+        Orders order=Orders.builder()
                 .user(user)
                 .product(product)
                 .quantity(quantity)
@@ -53,14 +52,14 @@ public class OrderController {
 
     //Get orders for a user
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Order>> getOrdersbyUser(@PathVariable Long userId){
+    public ResponseEntity<List<Orders>> getOrdersbyUser(@PathVariable Long userId){
         return ResponseEntity.ok(orderService.findByUserId(userId));
     }
 
     //Update order status
     @PutMapping("/update/{orderId}")
     public ResponseEntity<String> updateOrderStatus(@PathVariable Long orderId, @RequestParam String status){
-        Order order=orderService.findById(orderId);
+        Orders order=orderService.findById(orderId);
 
         order.setStatus(status);
         orderService.saveOrder(order);
